@@ -47,7 +47,6 @@ class Scraper
 				bills << bill
 			end
 		end
-		puts bills
 		bills
 	end
 
@@ -78,10 +77,19 @@ class Scraper
 
 		end
 		assemblymembers
-
 	end
 
 
+
+	# def self.get_leg_votes(url)
+		
+	# 	bill_id = url.to_s.split("?")[1]
+	# 	vote_path = "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?#{url}"
+	# 	doc = scrape_page(vote_path)
+
+	# 	post = doc.css("tbody")
+
+	# end
 
 
 

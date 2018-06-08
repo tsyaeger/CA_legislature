@@ -14,8 +14,8 @@ class Rep
 	end
 
 
-	def create_from_hash(rep_array)
-		hash.each do |assembly_hash|
+	def self.create_from_collection(rep_array)
+		rep_array.each do |assembly_hash|
 			self.new(assembly_hash)
 		end
 	end
@@ -24,6 +24,12 @@ class Rep
 	def self.last_names
   		last_names = self.all.collect{|obj| obj.last_name}
   	end
+
+
+  	def self.parties
+  		parties = self.all.collect{|obj| obj.party}
+  	end
+
 
 
 end

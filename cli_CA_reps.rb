@@ -5,8 +5,6 @@ require_relative "../Cli_leg_project/scraper.rb"
 require_relative "../Cli_leg_project/bill.rb"
 require_relative "../Cli_leg_project/rep.rb"
 
-Dir["/Cli_leg_project/*.rb"].each {|file| require file }
-
 require 'nokogiri'
 
 
@@ -14,6 +12,7 @@ class CommandLineInterface
 
 	def run
 		make_bills
+		make_reps
 	end
 
 
@@ -23,16 +22,13 @@ class CommandLineInterface
 	end
 
 
-	def make_assembly
-    	assembly_array = Scraper.get_assembly
-    	Assembly.create_from_collection(assembly_array)
+	def make_reps
+    	assembly_array = Scraper.scrape_assembly
+    	Rep.create_from_collection(assembly_array)
   	end
-
-
 
 end
 
 
 test = CommandLineInterface.new
-# test.testme
 test.run

@@ -20,6 +20,11 @@ class Party
 	end
 
 
+	def self.create_party(party_name)
+		party = self.new(party_name)
+  	end
+
+
 	def self.add_member(member)
     	@members << member
   	end
