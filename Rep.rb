@@ -8,6 +8,10 @@ class Rep
 
 	@@all = []
 
+	def self.all 
+		@@all
+	end
+
 	def initialize(rep_hash)
 		rep_hash.each{|k,v| self.send(("#{k}="), v)}
 		@@all << self
@@ -27,8 +31,16 @@ class Rep
 
 
   	def self.parties
-  		parties = self.all.collect{|obj| obj.party}
+  		parties = self.all.collect{|obj| obj.party}.uniq
   	end
+
+  	def self.get_rep_party(rep_name)
+  		self.all.find{|rep| rep.last_name == rep_name}
+  	end
+
+  	def self.set_rep_party_obj(party)
+  	end
+
 
 
 

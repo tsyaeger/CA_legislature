@@ -16,6 +16,7 @@ class Party
 	def initialize(party)
 		@name = party
 		@members = []
+		puts self.name
     	@@all << self
 	end
 
@@ -25,9 +26,15 @@ class Party
   	end
 
 
-	def self.add_member(member)
-    	@members << member
+	def self.add_member(party, party_member)
+		self.all.each do |party|
+			if party.name == party
+				party.members << party_member
+			end
+		end
   	end
+
+  	
 
 
 end

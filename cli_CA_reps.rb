@@ -4,6 +4,8 @@
 require_relative "../Cli_leg_project/scraper.rb"
 require_relative "../Cli_leg_project/bill.rb"
 require_relative "../Cli_leg_project/rep.rb"
+require_relative "../Cli_leg_project/party.rb"
+
 
 require 'nokogiri'
 
@@ -13,6 +15,8 @@ class CommandLineInterface
 	def run
 		make_bills
 		make_reps
+		make_parties
+		get_party_members
 	end
 
 
@@ -27,8 +31,53 @@ class CommandLineInterface
     	Rep.create_from_collection(assembly_array)
   	end
 
+
+  	def make_parties
+  		parties = Rep.parties 
+  		parties.each do |party|
+  			Party.create_party(party)
+  		end
+  	end
+
+
+  	def get_party_members
+  		Rep.all.each do |rep|
+  			Party.add_member(rep.party, rep.last_name)
+  		end
+  	end
+
 end
 
 
 test = CommandLineInterface.new
 test.run
+
+
+
+
+
+
+
+# class Script
+
+# 	def intro_msg
+# 		puts "Hello. Please select from the below options."
+
+# 		puts "1) Find representative by district"
+# 		puts "2) Find representative by name"
+# 		puts "3) Find bills by author"
+# 		puts "4) Find bills by id"
+# 		puts "5) View all representatives"
+
+# 	def find_rep_by_district
+
+# 	def find_rep_by_name
+		
+# 	def find_bills_by_author
+
+# 	def find_bill_by_number
+
+# 	def view_all_reps
+
+
+
