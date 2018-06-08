@@ -67,17 +67,19 @@ class Scraper
 			rep_row = rep.css("td")
 
 			r_name = rep_row[0].text.strip
-			representative[:rep_name] = r_name.gsub("[edit]","")
+			whole_name = r_name.gsub("[edit]","").split(",")
+			representative[:last_name] = whole_name[0]
+			representative[:first_name] = whole_name[1].strip
 			representative[:district] = rep_row[1].text.strip
 			representative[:party] = rep_row[2].text.strip
-			representative[:contact_url] = rep.css("a")[2].attribute("href").to_s
+			representative[:contact_url] = rep.css("a")[2].attribute("href").to_s #NEED TO GET BY CLASS
 
 
 
 			assemblymembers << representative
 
 		end
-		puts assemblymembers
+		assemblymembers
 
 	end
 
