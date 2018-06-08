@@ -74,8 +74,6 @@ class Scraper
 			representative[:party] = rep_row[2].text.strip
 			representative[:contact_url] = rep.css("a")[2].attribute("href").to_s #NEED TO GET BY CLASS
 
-
-
 			assemblymembers << representative
 
 		end
