@@ -64,18 +64,20 @@ class Scraper
 		assembly.each do |rep|
 			representative = {}
 
-			puts rep.css("td a").attribute("href")
+			rep_row = rep.css("td")
 
-			r_name = rep.css("td")[0].text.strip
+			r_name = rep_row[0].text.strip
 			representative[:rep_name] = r_name.gsub("[edit]","")
-			representative[:district] = rep.css("td")[1].text.strip
-			representative[:party] = rep.css("td")[2].text.strip
+			representative[:district] = rep_row[1].text.strip
+			representative[:party] = rep_row[2].text.strip
+			representative[:contact_url] = rep.css("a")[2].attribute("href").to_s
+
 
 
 			assemblymembers << representative
 
 		end
-		# puts assemblymembers
+		puts assemblymembers
 
 	end
 
