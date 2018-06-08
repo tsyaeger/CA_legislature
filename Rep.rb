@@ -42,6 +42,15 @@ class Rep
   	end
 
 
+  	 def find_rep_url(last_name)
+  		self.each do |rep|
+  			if rep.last_name == last_name
+  				rep.contact_url
+  			end
+  		end
+  	end
+
+
 
 
 end
