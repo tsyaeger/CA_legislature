@@ -55,23 +55,27 @@ class Scraper
 	def self.scrape_assembly
 		assembly_path = 'http://assembly.ca.gov/assemblymembers'
 
+		assemblymembers = []
+
 		page = scrape_page(assembly_path)
 
 		assembly = page.css("tbody tr")
 
 		assembly.each do |rep|
-			# puts rep.css("td")
+			representative = {}
 
-			rep_name = rep.css("td")[0].text.gsub("[edit]","")
-			district = rep.css("td")[1].text.strip
-			party = rep.css("td")[2].text.strip
-			# puts rep_name 
-			# puts district
-			puts party
-			puts "\n"
+			puts rep.css("td a").attribute("href")
+
+			r_name = rep.css("td")[0].text.strip
+			representative[:rep_name] = r_name.gsub("[edit]","")
+			representative[:district] = rep.css("td")[1].text.strip
+			representative[:party] = rep.css("td")[2].text.strip
+
+
+			assemblymembers << representative
 
 		end
-
+		# puts assemblymembers
 
 	end
 
