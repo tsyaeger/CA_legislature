@@ -19,11 +19,65 @@ class Scraper
 	def self.scrape_leg
 		leg_path = 'http://leginfo.legislature.ca.gov/faces/billSearchClient.xhtml?session_year=20172018&house=Both&author=All&lawCode=All'
 
-		page = scrape_page(leg_path)
+		bills = []
 
-		puts page
+		page = scrape_page(leg_path)
+		legs = page.css("tbody tr")
+		# puts legs
+		# puts "\n"
+
+		legs.each do |post|
+
+			bill_name = post.css("a").text
+			bill_type = bill_name.split("-")[0]
+			status = post.css("td")[3].text
+
+			# puts bill_name
+			# puts bill_type
+			# puts status
+
+			if bill_type == "AB" && status == "Chaptered"
+				bill = {}
+
+				bill[:name] = bill_name.strip
+				bill[:url] = post.css("a").attribute('href').to_s
+				bill[:description] = post.css("td")[1].text
+				bill[:author] = post.css("td")[2].text
+		
+				bills << bill
+			end
+		end
+		puts bills
+		bills
+	end
+
+
+	def self.scrape_assembly
+		assembly_path = 'http://assembly.ca.gov/assemblymembers'
+
+		page = scrape_page(assembly_path)
+
+		assembly = page.css("tbody tr")
+
+		assembly.each do |rep|
+			# puts rep.css("td")
+
+			rep_name = rep.css("td")[0].text.gsub("[edit]","")
+			district = rep.css("td")[1].text.strip
+			party = rep.css("td")[2].text.strip
+			# puts rep_name 
+			# puts district
+			puts party
+			puts "\n"
+
+		end
+
 
 	end
+
+
+
+
 
 
 end
@@ -31,4 +85,11 @@ end
 
 
 test = Scraper
-test.scrape_leg
+# test.scrape_leg
+test.scrape_assembly
+
+
+
+
+
+
