@@ -67,6 +67,11 @@ class Script
 	end
 
 
+	def exit_message
+		puts "Goodbye."
+	end
+
+
 	def display_assembly(reps)
     	reps.each do |rep|
 	      puts "#{rep.first_name} #{rep.last_name}".colorize(:blue)

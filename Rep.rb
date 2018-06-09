@@ -56,6 +56,10 @@ class Rep
 
 
 
+    def self.find_by_district(district)
+      	rep = self.all.detect {|o| o.district.to_s == district.to_s}
+    end
+
 
 
 	def self.last_names
@@ -68,18 +72,6 @@ class Rep
   	end
 
 
-
-	# def party=(party)
-	# 	@party = party
-	# 	party.add_member(self) unless party.members.include?(self)
-	# end
-
-
-
-
- #  	def self.get_rep_party(rep_name)
- #  		self.all.find{|rep| rep.last_name == rep_name}
- #  	end
 
 
 

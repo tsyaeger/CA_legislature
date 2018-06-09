@@ -3,7 +3,7 @@
 
 class Bill
 
-	attr_accessor :id, :url, :description, :author, :author_obj
+	attr_accessor :id, :url, :description, :author
 
 	@@all = []
 
@@ -31,19 +31,11 @@ class Bill
   	end
 
 
+    def self.find_by_id(id)
+      	bill = self.all.detect {|o| o.id == id}
+    end
 
-  	# def add_bill_votes(vote_hash)
-   #  	vote_hash.each {|key, value| self.send(("#{key}="), value)}
-  	# end
 
-
-  	# def find_bill_url(bill_id)
-  	# 	self.each do |bill|
-  	# 		if bill.bill_id == bill_id
-  	# 			bill.url
-  	# 		end
-  	# 	end
-  	# end
 
 
 end

@@ -14,8 +14,40 @@ require 'nokogiri'
 class CommandLineInterface
 
 	def run
+
+		script = Script.new
+
+		input = script.intro_msg
 		make_reps
 		make_bills
+
+		while input != "exit"
+
+			case input 
+			when "1"
+				find_rep_by_district
+				input = script.find_rep_by_district
+			when "2"
+				find_rep_by_name
+				input = script.find_rep_by_name
+			when "3"
+				find_bills_by_author
+				input = script.find_bills_by_author
+			when "4"
+				find_bill_by_number
+				input = script.find_bill_by_number
+			when "5"
+				view_all_reps
+				script.view_all_reps
+			else
+				run # CHANGE ME - SHOULD NOT START FROM BEGINNING
+			end
+		end
+
+
+		script.exit_message
+
+
 	end
 
 
@@ -34,9 +66,8 @@ class CommandLineInterface
 
 
 
-  # 	def self.set_rep_party_obj
-		# Rep.all.each{|rep| Party.add_member(rep)}
-  # 	end
+
+
 
 end
 
@@ -47,29 +78,6 @@ test.run
 
 
 
-
-
-
-# class Script
-
-# 	def intro_msg
-# 		puts "Hello. Please select from the below options."
-
-# 		puts "1) Find representative by district"
-# 		puts "2) Find representative by name"
-# 		puts "3) Find bills by author"
-# 		puts "4) Find bills by id"
-# 		puts "5) View all representatives"
-
-# 	def find_rep_by_district
-
-# 	def find_rep_by_name
-
-# 	def find_bills_by_author
-
-# 	def find_bill_by_number
-
-# 	def view_all_reps
 
 	# def contact_q
 	# 	puts "Would you like to contact your representative? (Y/N)"
