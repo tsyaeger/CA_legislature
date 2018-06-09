@@ -27,18 +27,27 @@ class CommandLineInterface
 			when "1"
 				find_rep_by_district
 				input = script.find_rep_by_district
+				Rep.find_by_district(input)
+
 			when "2"
 				find_rep_by_name
 				input = script.find_rep_by_name
+				Rep.find_by_name(inpute)
+
 			when "3"
 				find_bills_by_author
 				input = script.find_bills_by_author
+				Bill.find_by_author(input)
+
 			when "4"
 				find_bill_by_number
 				input = script.find_bill_by_number
+				Bill.find_by_id(input)
+
 			when "5"
 				view_all_reps
-				script.view_all_reps
+				script.view_all_reps(Reps.all)
+
 			else
 				run # CHANGE ME - SHOULD NOT START FROM BEGINNING
 			end
@@ -46,7 +55,6 @@ class CommandLineInterface
 
 
 		script.exit_message
-
 
 	end
 
@@ -58,11 +66,39 @@ class CommandLineInterface
   	end
 
 
-
 	def make_bills
 		bills_array = Scraper.scrape_leg
 		Bill.create_from_collection(bills_array)
 	end
+
+
+
+
+	def find_rep_by_district
+		input = script.find_rep_by_district
+		Rep.find_by_district(input)
+	end
+
+
+	def find_rep_by_name
+		input = script.find_rep_by_name
+		Rep.find_by_name(inpute)
+	end
+
+
+	def find_bills_by_author
+		input = script.find_bills_by_author
+		Bill.find_by_author(input)
+	end
+
+	def find_bill_by_number
+		input = script.find_bill_by_number
+		Bill.find_by_id(input)
+	end
+
+
+
+
 
 
 

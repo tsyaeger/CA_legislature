@@ -36,6 +36,9 @@ class Bill
     end
 
 
+    def self.find_by_author(last_name)
+      	bill = self.all.collect {|o| o.author == last_name}
+    end
 
 
 end
