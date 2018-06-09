@@ -20,8 +20,9 @@ class Party
 	end
 
 
-	def self.find_or_create(party)
-		find_by_name || create_party
+	def self.find_or_create_by_name(party)
+		find_by_name(party) || create_party(party)
+	end
 
 
 	def self.create_party(party_name)
@@ -29,7 +30,7 @@ class Party
   	end
 
 
-    def find_by_name(name)
+    def self.find_by_name(name)
       	self.all.detect {|o| o.name == name}
     end
 
