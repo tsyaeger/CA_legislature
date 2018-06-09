@@ -67,4 +67,15 @@ class Script
 	end
 
 
+	def display_assembly(reps)
+    	reps.each do |rep|
+	      puts "#{rep.first_name} #{rep.last_name}".colorize(:blue)
+	      puts "  district:".colorize(:light_blue) + " #{rep.district}"
+	      puts "  party:".colorize(:light_blue) + " #{rep.party}"
+	      puts "  contact info:".colorize(:light_blue) + " #{rep.contact_url}"
+	      puts "----------------------".colorize(:green)
+    	end
+  	end	
+
+
 end

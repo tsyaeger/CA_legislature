@@ -19,11 +19,25 @@ class Rep
 
 
 	def self.create_from_collection(rep_array)
-		rep_array.each do |assembly_hash|
-			self.new(assembly_hash)
+		rep_array.each do |rep_hash|
+			puts rep_hash
+
+			party = rep_hash[:party]
+		  	party_obj = Party.find_or_create_by_name(party)
+		  	rep_hash[:party] = party_obj
+
+			self.new(rep_hash)
 		end
 	end
 	
+
+
+  	def self.set_rep_party_obj
+		Rep.all.each{|rep| Party.add_member(rep)}
+  	end
+
+
+
 
 	def self.last_names
   		last_names = self.all.collect{|obj| obj.last_name}
@@ -34,12 +48,20 @@ class Rep
   		parties = self.all.collect{|obj| obj.party}.uniq
   	end
 
-  	def self.get_rep_party(rep_name)
-  		self.all.find{|rep| rep.last_name == rep_name}
-  	end
 
-  	def self.set_rep_party_obj(party)
-  	end
+
+	# def party=(party)
+	# 	@party = party
+	# 	party.add_member(self) unless party.members.include?(self)
+	# end
+
+
+
+
+ #  	def self.get_rep_party(rep_name)
+ #  		self.all.find{|rep| rep.last_name == rep_name}
+ #  	end
+
 
 
   	 def find_rep_url(last_name)

@@ -5,6 +5,7 @@ require_relative "../Cli_leg_project/scraper.rb"
 require_relative "../Cli_leg_project/bill.rb"
 require_relative "../Cli_leg_project/rep.rb"
 require_relative "../Cli_leg_project/party.rb"
+require_relative "../Cli_leg_project/script.rb"
 
 
 require 'nokogiri'
@@ -13,15 +14,21 @@ require 'nokogiri'
 class CommandLineInterface
 
 	def run
-		make_bills
 		make_reps
 		make_parties
-		get_party_members
+		make_bills
+		# get_party_members
 	end
 
 
 	def make_bills
 		bills_array = Scraper.scrape_leg
+
+		
+		author = Reps 
+
+
+
 		Bill.create_from_collection(bills_array)
 	end
 
@@ -40,10 +47,15 @@ class CommandLineInterface
   	end
 
 
-  	def get_party_members
-  		Rep.all.each do |rep|
-  			Party.add_member(rep.party, rep.last_name)
-  		end
+  # 	def get_party_members
+  # 		Rep.all.each do |rep|
+  # 			Party.add_member(rep.party, rep.last_name)
+  # 		end
+  # 	end
+
+
+  	def self.set_rep_party_obj
+		Rep.all.each{|rep| Party.add_member(rep)}
   	end
 
 end
@@ -72,12 +84,34 @@ test.run
 # 	def find_rep_by_district
 
 # 	def find_rep_by_name
-		
+
 # 	def find_bills_by_author
 
 # 	def find_bill_by_number
 
 # 	def view_all_reps
+
+	# def contact_q
+	# 	puts "Would you like to contact your representative? (Y/N)"
+	# 	input = gets.strip.upcase
+	# end
+
+	# def contact_representative(url)
+	# 	open(url)
+	# end
+
+
+	# def bill_text_q(bill_id)
+	# 	puts "Would you like to view the bill details online? (Y/N)"
+	# 	input = gets.strip.upcase
+	# end
+
+
+	# def view_bill_details(url)
+	# 	open(url)
+	# end
+
+	# def display_assembly(reps)
 
 
 

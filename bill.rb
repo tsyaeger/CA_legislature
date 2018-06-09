@@ -29,18 +29,18 @@ class Bill
 
 
 
-  	def add_bill_votes(vote_hash)
-    	vote_hash.each {|key, value| self.send(("#{key}="), value)}
-  	end
+  	# def add_bill_votes(vote_hash)
+   #  	vote_hash.each {|key, value| self.send(("#{key}="), value)}
+  	# end
 
 
-  	def find_bill_url(bill_id)
-  		self.each do |bill|
-  			if bill.bill_id == bill_id
-  				bill.url
-  			end
-  		end
-  	end
+  	# def find_bill_url(bill_id)
+  	# 	self.each do |bill|
+  	# 		if bill.bill_id == bill_id
+  	# 			bill.url
+  	# 		end
+  	# 	end
+  	# end
 
 
 end
