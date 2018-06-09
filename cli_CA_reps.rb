@@ -19,17 +19,6 @@ class CommandLineInterface
 	end
 
 
-	def make_bills
-		bills_array = Scraper.scrape_leg
-
-
-		# author = Reps 
-
-
-
-		Bill.create_from_collection(bills_array)
-	end
-
 
 	def make_reps
     	assembly_array = Scraper.scrape_assembly
@@ -38,10 +27,16 @@ class CommandLineInterface
 
 
 
+	def make_bills
+		bills_array = Scraper.scrape_leg
+		Bill.create_from_collection(bills_array)
+	end
 
-  	def self.set_rep_party_obj
-		Rep.all.each{|rep| Party.add_member(rep)}
-  	end
+
+
+  # 	def self.set_rep_party_obj
+		# Rep.all.each{|rep| Party.add_member(rep)}
+  # 	end
 
 end
 

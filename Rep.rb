@@ -4,7 +4,7 @@
 
 class Rep
 
-	attr_accessor :first_name, :last_name, :district, :party, :contact_url
+	attr_accessor :first_name, :last_name, :district, :party, :contact_url, :bills_authored
 
 	@@all = []
 
@@ -13,8 +13,9 @@ class Rep
 	end
 
 	def initialize(rep_hash)
-		rep_hash.each{|k,v| self.send(("#{k}="), v)}
+		@bills_authored = []
 
+		rep_hash.each{|k,v| self.send(("#{k}="), v)}
 
 		@party.add_member(self) unless @party.members.include?(self)
 
@@ -47,6 +48,11 @@ class Rep
 	
 
 
+
+
+    def self.find_by_name(last_name)
+      	rep = self.all.detect {|o| o.last_name == last_name.upcase}
+    end
 
 
 

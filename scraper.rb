@@ -28,7 +28,7 @@ class Scraper
 				bill[:id] = bill_name.strip
 				bill[:url] = post.css("a").attribute('href').to_s
 				bill[:description] = post.css("td")[1].text
-				bill[:author] = post.css("td")[2].text
+				bill[:author] = post.css("td")[2].text.upcase
 		
 				bills << bill
 			end

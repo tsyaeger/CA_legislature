@@ -21,8 +21,11 @@ class Bill
 
 	def self.create_from_collection(bills_array)
     	bills_array.each do |bill_hash|
-    		# puts bill_hash[:author]
-    		# puts "\n"
+
+			rep = bill_hash[:author]
+		  	rep_obj = Rep.find_by_name(rep)
+		  	bill_hash[:author] = rep_obj
+
       		self.new(bill_hash)
     	end
   	end
