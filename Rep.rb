@@ -14,8 +14,24 @@ class Rep
 
 	def initialize(rep_hash)
 		rep_hash.each{|k,v| self.send(("#{k}="), v)}
+
+
+		@party.add_member(self) unless @party.members.include?(self)
+
 		@@all << self
 	end
+
+
+
+
+
+
+
+  	def self.set_rep_party_obj # HOW TO SET FOR PARTICULAR PARTY?
+		Rep.all.each{|rep| Party.add_member(rep)}
+  	end
+
+
 
 
 	def self.create_from_collection(rep_array)
@@ -24,7 +40,6 @@ class Rep
 			party = rep_hash[:party]
 		  	party_obj = Party.find_or_create_by_name(party)
 		  	rep_hash[:party] = party_obj
-			puts rep_hash
 
 			self.new(rep_hash)
 		end
@@ -32,9 +47,7 @@ class Rep
 	
 
 
-  	def self.set_rep_party_obj # HOW TO SET FOR PARTICULAR PARTY?
-		Rep.all.each{|rep| Party.add_member(rep)}
-  	end
+
 
 
 

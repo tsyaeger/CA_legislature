@@ -15,17 +15,15 @@ class CommandLineInterface
 
 	def run
 		make_reps
-		make_parties
 		make_bills
-		# get_party_members
 	end
 
 
 	def make_bills
 		bills_array = Scraper.scrape_leg
 
-		
-		author = Reps 
+
+		# author = Reps 
 
 
 
@@ -39,19 +37,6 @@ class CommandLineInterface
   	end
 
 
-  	def make_parties
-  		parties = Rep.parties 
-  		parties.each do |party|
-  			Party.create_party(party)
-  		end
-  	end
-
-
-  # 	def get_party_members
-  # 		Rep.all.each do |rep|
-  # 			Party.add_member(rep.party, rep.last_name)
-  # 		end
-  # 	end
 
 
   	def self.set_rep_party_obj

@@ -35,22 +35,22 @@ class Party
     end
 
 
-	# def self.add_member(party, party_member)
-	# 	self.all.each do |party|
-	# 		if party.name == party
-	# 			party.members << party_member
-	# 		end
-	# 	end
- #  	end
+
+
+  	def add_member(rep)
+	   	@members << rep unless @members.include?(rep)
+	    if rep.party == nil
+      		rep.party = self
+	    end
+  	end
+
+
+	def self.members
+  		members = self.all.collect{|obj| obj.members}
+  	end
 
 
 
-  	# def add_member(member)
-	  #  	@members << member unless @members.include?(member)
-		 #     member.party = self
-		 #    end
-  	# 	end
-  	# end
 
 
 end
