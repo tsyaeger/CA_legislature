@@ -4,9 +4,15 @@
 class Script
 
 
+
+
 	def intro_msg
 		puts "Hello. Please select from the below options."
+	end
 
+
+	def options_msg
+		
 		puts "1) Find representative by district"
 		puts "2) Find representative by name"
 		puts "3) Find bills by author"

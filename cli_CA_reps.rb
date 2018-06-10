@@ -13,40 +13,56 @@ require 'nokogiri'
 
 class CommandLineInterface
 
+
+	attr_accessor :script 
+
+	def initialize
+		@script = Script.new 
+	end
+
+
 	def run
 
-		script = Script.new
+		@script.intro_msg
 
-		input = script.intro_msg
 		make_reps
 		make_bills
+
+		options 
+
+	end
+
+
+	def options
+
+		input = @script.options_msg.to_s		
 
 		while input != "exit"
 
 			case input 
 			when "1"
 				find_rep_by_district
-				input = script.find_rep_by_district
-				Rep.find_by_district(input)
+				# input = script.find_rep_by_district
+				# Rep.find_by_district(input)
 
 			when "2"
 				find_rep_by_name
-				input = script.find_rep_by_name
-				Rep.find_by_name(inpute)
+				# input = script.find_rep_by_name
+				# Rep.find_by_name(inpute)
 
 			when "3"
 				find_bills_by_author
-				input = script.find_bills_by_author
-				Bill.find_by_author(input)
+				# input = script.find_bills_by_author
+				# Bill.find_by_author(input)
 
 			when "4"
 				find_bill_by_number
-				input = script.find_bill_by_number
-				Bill.find_by_id(input)
+				# input = script.find_bill_by_number
+				# Bill.find_by_id(input)
 
 			when "5"
 				view_all_reps
-				script.view_all_reps(Reps.all)
+				@script.view_all_reps(Reps.all)
 
 			else
 				run # CHANGE ME - SHOULD NOT START FROM BEGINNING
@@ -73,33 +89,31 @@ class CommandLineInterface
 
 
 
-
 	def find_rep_by_district
-		input = script.find_rep_by_district
-		Rep.find_by_district(input)
+		input = @script.find_rep_by_district
+		rep = Rep.find_by_district(input)
+		puts "#{rep.first_name} #{rep.last_name}"
+		puts "#{rep.party.name}"
+		options
+
 	end
 
 
 	def find_rep_by_name
-		input = script.find_rep_by_name
+		input = @script.find_rep_by_name
 		Rep.find_by_name(inpute)
 	end
 
 
 	def find_bills_by_author
-		input = script.find_bills_by_author
+		input = @script.find_bills_by_author
 		Bill.find_by_author(input)
 	end
 
 	def find_bill_by_number
-		input = script.find_bill_by_number
+		input = @script.find_bill_by_number
 		Bill.find_by_id(input)
 	end
-
-
-
-
-
 
 
 
