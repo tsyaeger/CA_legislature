@@ -4,7 +4,7 @@
 
 class Rep
 
-	attr_accessor :first_name, :last_name, :district, :party, :contact_url, :bills_authored
+	attr_accessor :first_name, :last_name, :district, :party, :contact_url, :bills_authored, :house
 
 	@@all = []
 

@@ -30,7 +30,8 @@ class CommandLineInterface
 
 		@script.intro_msg
 
-		make_reps
+		make_assembly
+		make_senate
 		make_bills
 		options 
 
@@ -69,9 +70,14 @@ class CommandLineInterface
 
 
 
-	def make_reps
+	def make_assembly
     	assembly_array = Scraper.scrape_assembly
     	Rep.create_from_collection(assembly_array)
+  	end
+
+  	def make_senate
+    	senate_array = Scraper.scrape_senate
+    	Rep.create_from_collection(senate_array)
   	end
 
 
@@ -170,13 +176,34 @@ class CommandLineInterface
 		if input == '1'
 		#Alphabetically
 			Rep.all.sort_by(&:last_name).each do |rep|
-				puts "#{rep.last_name}, #{rep.first_name} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+				puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
 			end
 
 		elsif input == '2'
-		#By District
-			Rep.all.sort_by(&:district).each do |rep|
-				puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
+			#BY DISTRICT
+			puts "1) View Senate\n2) View Assembly"
+			input = gets.strip
+
+			if input == "1"
+				senate = []
+				Rep.all.each{|rep| senate << rep if rep.house == "SENATE"}
+				puts senate
+
+
+				senate.sort_by(&:district).each do |rep|
+					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name} - #{rep.party.name}"
+				end
+
+			elsif input == "2"
+				assembly = []
+
+				Rep.all.each do |rep|
+					assembly << rep if rep.house == "ASSEMBLY"
+				end
+
+				assembly.sort_by(&:district).each do |rep|
+					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name} - #{rep.party.name}"
+				end
 			end
 		end
 

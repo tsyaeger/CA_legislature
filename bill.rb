@@ -67,8 +67,8 @@ class Bill
       		end
 		end
 		bills = rep_bills.collect{|bill| [bill.id, bill.description]}
+    puts "\n"
 		bills.each do |bill| 
-			puts "\n"
 			puts "#{bill[0]}: #{bill[1]}"
 		end
     end
