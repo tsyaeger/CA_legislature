@@ -15,8 +15,6 @@ class Bill
 	def initialize(bill_hash)
 		bill_hash.each {|key, value| self.send(("#{key}="), value)}
 
-		# @author.add_authored_bill(self) unless @author.bills_authored.include?(self)
-
     	@@all << self
 	end
 
@@ -35,19 +33,34 @@ class Bill
   	end
 
 
+
+
     def self.find_by_id(id)
-      	bill = self.all.detect {|o| o.id == id}
+
+    	bill = self.all.detect {|o| o.id == id.upcase}
+
+    	# puts 'searching ids'
+    	# self.all.each do |bill|
+    	# 	if bill.id
+    	# 		puts 'put id'
+    	# 		puts bill.id
+    	# 		if bill.id == id.upcase
+    	# 			puts "MATCH"
+    	# 			bill 
+    	# 		end
+    	# 	end
+    	# end
+      	# bill = self.all.detect {|o| o.id == id}
     end
+
+
 
 
     def self.find_by_author(last_name)
     	rep_bills = []
 
-    	# puts last_name
       	self.all.each do |bill|
-      		# puts bill.id
       		if bill.author
-      			# puts bill.author.last_name
       			if bill.author.last_name == last_name
       				rep_bills << bill
       			end

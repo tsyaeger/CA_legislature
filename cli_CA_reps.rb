@@ -1,5 +1,9 @@
 
-
+require 'bundler'
+require 'nokogiri'
+require 'colorize'
+require 'rubygems'
+require 'open-uri'
 
 require_relative "../Cli_leg_project/scraper.rb"
 require_relative "../Cli_leg_project/bill.rb"
@@ -8,7 +12,8 @@ require_relative "../Cli_leg_project/party.rb"
 require_relative "../Cli_leg_project/script.rb"
 
 
-require 'nokogiri'
+
+
 
 
 class CommandLineInterface
@@ -29,16 +34,16 @@ class CommandLineInterface
 		make_bills
 		options 
 
-		script.exit_message
+		@script.exit_message
 
 	end
 
 
 	def options
 
-		input = @script.options_msg.to_s		
+		input = @script.options_msg.to_s.upcase	
 
-		while input != "exit"
+		while input != "EXIT"
 
 			case input 
 			when "1"
@@ -77,30 +82,44 @@ class CommandLineInterface
 
 
 
+
 	def find_rep_by_district
 		input = @script.find_rep_by_district
 		rep = Rep.find_by_district(input)
 		puts "#{rep.first_name} #{rep.last_name}"
 		puts "#{rep.party.name}"
-
-
-
-		# FIND BILLS BY AUTHOR? 
-		find_bills_by_author
-
-
-		# CONTACT REP
-		# contact_rep(rep.last_name)
+		puts "#{rep.district}"
 
 		options
 
+
+		# rep options (skipping input)
+		# - find bills by author 
+		# - contact rep 
+		# - return to main menu
+
 	end
+
 
 
 	def find_rep_by_name
 		input = @script.find_rep_by_name
-		Rep.find_by_name(input)
+		rep = Rep.find_by_name(input)
+		puts "#{rep.first_name} #{rep.last_name}"
+		puts "#{rep.party.name}"
+		puts "#{rep.district}" 
+
+		options
+
+
+		# rep options (skipping input)
+		# - find bills by author 
+		# - contact rep 
+		# - return to main menu
+
 	end
+
+
 
 
 	def find_bills_by_author
@@ -109,10 +128,31 @@ class CommandLineInterface
 		options
 	end
 
+
+
+	# bill options
+	# - view bill details online
+	# - contact rep
+	# - return to main menu
+
+
+
+
 	def find_bill_by_number
 		input = @script.find_bill_by_number
-		Bill.find_by_id(input)
+		bill = Bill.find_by_id(input)
+		puts "#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
+		options
 	end
+
+
+
+	# bill options
+	# - view bill details online
+	# - find rep by name (author)
+	# - return to main menu
+
+
 
 
 	def contact_rep(last_name)
@@ -121,44 +161,28 @@ class CommandLineInterface
 	end
 
 
-	def get_bill_details
-
-	end
 
 
 	def view_all_reps
 
-		puts "1) View by name\n2) View by district"
-		input = gets.strip
-
-		puts "District count: #{Rep.all.count}\n"
+		input = @script.view_all_reps_msg
 
 		if input == '1'
 		#Alphabetically
-			Rep.all.collect{|rep| puts "#{rep.last_name}, #{rep.first_name} - #{rep.party.name} - District #{rep.district}"}
+			Rep.all.sort_by(&:last_name).each do |rep|
+				puts "#{rep.last_name}, #{rep.first_name} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+			end
 
 		elsif input == '2'
 		#By District
 			Rep.all.sort_by(&:district).each do |rep|
-				puts "#{rep.district}: #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
+				puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 			end
 		end
 
 		options
 	end
 
-
-
-
-	# def list_songs_by_genre
-	# 	puts "Please enter the name of a genre:"
-	# 	get_genre = gets.strip
-	# 	if genre = Genre.find_by_name(get_genre)
-	# 		genre.songs.sort_by(&:name).each.with_index(1) do |song,ix|
-	# 			puts "#{ix}. #{song.artist.name} - #{song.name}"
-	# 		end
-	# 	end
-	# end
 
 
 end
