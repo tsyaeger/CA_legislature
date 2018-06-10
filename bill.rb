@@ -14,8 +14,13 @@ class Bill
 
 	def initialize(bill_hash)
 		bill_hash.each {|key, value| self.send(("#{key}="), value)}
+
+		# @author.add_authored_bill(self) unless @author.bills_authored.include?(self)
+
     	@@all << self
 	end
+
+
 
 
 
@@ -25,7 +30,6 @@ class Bill
 			rep = bill_hash[:author]
 		  	rep_obj = Rep.find_by_name(rep)
 		  	bill_hash[:author] = rep_obj
-
       		self.new(bill_hash)
     	end
   	end
@@ -37,8 +41,28 @@ class Bill
 
 
     def self.find_by_author(last_name)
-      	bill = self.all.collect {|o| o.author == last_name}
+    	rep_bills = []
+
+    	# puts last_name
+      	self.all.each do |bill|
+      		# puts bill.id
+      		if bill.author
+      			# puts bill.author.last_name
+      			if bill.author.last_name == last_name
+      				rep_bills << bill
+      			end
+      		end
+		end
+		bills = rep_bills.collect{|bill| [bill.id, bill.description]}
+		bills.each do |bill| 
+			puts "\n"
+			puts "#{bill[0]}: #{bill[1]}"
+		end
     end
 
 
 end
+
+
+
+

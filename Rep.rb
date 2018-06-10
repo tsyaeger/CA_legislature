@@ -25,9 +25,6 @@ class Rep
 
 
 
-
-
-
   	def self.set_rep_party_obj # HOW TO SET FOR PARTICULAR PARTY?
 		Rep.all.each{|rep| Party.add_member(rep)}
   	end
@@ -46,6 +43,12 @@ class Rep
 		end
 	end
 	
+
+
+
+	def add_authored_bill(bill)
+   		@bills_authored << bill unless @bills_authored.include?(bill)
+  	end
 
 
 
@@ -77,8 +80,7 @@ class Rep
 
 
 
-
-  	 def find_rep_url(last_name)
+  	 def self.find_rep_url(last_name)
   		self.each do |rep|
   			if rep.last_name == last_name
   				rep.contact_url

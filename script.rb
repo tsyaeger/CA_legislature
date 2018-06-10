@@ -12,12 +12,14 @@ class Script
 
 
 	def options_msg
-		
+
+		puts "\n"
 		puts "1) Find representative by district"
 		puts "2) Find representative by name"
 		puts "3) Find bills by author"
 		puts "4) Find bills by id"
 		puts "5) View all representatives"
+		puts "\n"
 
 		input = gets.strip
 	end
