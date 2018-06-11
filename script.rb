@@ -128,32 +128,26 @@ class Script
 	end
 
 
-	def view_all_alpha_reps(reps)
-		puts "\n"
-		reps.each do |rep|
-			puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
-		end
-		puts "\n"
+	def view_all_alpha_reps(rep)
+		puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
 	end
 
 
 	def view_by_house_q
-		puts "\n1) View all\n3) View Senate\n3) View Assembly\n"
+		puts "\n1) View all\n2) View Senate\n3) View Assembly\n"
 		input = gets.strip
 	end
 
 
-	def view_all_district_reps(reps)
-		puts "\n"
-		reps.each do |rep|
-			puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
-		end
-		puts "\n"
+	def view_all_district_reps(rep)
+		puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 	end
 
 
 
-
+	def test
+		puts "test"
+	end
 
 
 

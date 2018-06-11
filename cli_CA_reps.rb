@@ -25,9 +25,6 @@ class CommandLineInterface
 	def run
 		@script.intro_msg
 		create_leg_objects
-		puts Rep.all.sort_by(&:last_name)
-
-		
 		user_options 
 		@script.exit_message
 	end
@@ -150,14 +147,14 @@ class CommandLineInterface
 
 		if sort_input == '1'
 		# ALPHABETICALLY
-		puts "\n1) View all\n2) View Democrats\n3) View Republicans\n"
-		party_input = gets.strip
-			# party_input = @scripts.view_by_party_q
+			party_input = @script.view_by_party_q
+			puts "party input: #{party_input}"
 			party_sort(party_input)
 
 		elsif sort_input == '2'
 		# BY DISTRICT
 			house_input = @script.view_by_house_q
+			puts "house input: #{house_input}"
 			house_sort(house_input)
 
 		end
@@ -169,11 +166,10 @@ class CommandLineInterface
 
 	def party_sort(party_input)
 
-		puts "party input: #{party_input}"
 		case party_input
 
-		when '1'. # ALL
-			reps = Rep.all.sort_by(&:last_name)
+		when '1' # ALL
+			Rep.all.sort_by(&:last_name).each{|rep| puts rep.last_name}
 
 		when '2' 
 			democrats = []
@@ -198,28 +194,31 @@ class CommandLineInterface
 
 	def house_sort(house_input)
 
-		puts "house input: #{house_input}"
-
 		case house_input
 
 		when "1" # ALL
-			reps = Rep.all.sort_by(&:district)
+			Rep.all.sort_by(&:district).each do |rep|
+				@script.view_all_district_reps(rep)
+			end
 
 		when "2"
 			senate = []
 			Rep.all.each{|rep| senate << rep if rep.house == "SENATE"}
-			reps = senate.sort_by(&:district)
+			senate.sort_by(&:district).each do |rep|
+				@script.view_all_district_reps(rep)
+			end
 
 		when "3"
 			assembly = []
 			Rep.all.each{|rep| assembly << rep if rep.house == "ASSEMBLY"}
-			reps = assembly.sort_by(&:district)
+			assembly.sort_by(&:district).each do |rep|
+				@script.view_all_district_reps(rep)
+			end
 
 		else
 			view_all_reps
 
 		end
-		@script.view_all_district_reps(reps)
 	end
 
 
