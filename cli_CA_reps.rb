@@ -169,23 +169,22 @@ class CommandLineInterface
 		case party_input
 
 		when '1' # ALL
-			Rep.all.sort_by(&:last_name).each{|rep| puts rep.last_name}
+			Rep.all.sort_by(&:last_name).each{|rep| @script.view_all_alpha_reps(rep)}
 
 		when '2' 
 			democrats = []
 			Rep.all.each{|rep| democrats << rep if rep.party.name == "DEMOCRAT"}
-			reps = democrats.sort_by(&:last_name)
+			democrats.sort_by(&:last_name).each{|rep| @script.view_all_alpha_reps(rep)}
 
 		when '3'
 			republicans = []
 			Rep.all.each{|rep| republicans << rep if rep.party.name == "REPUBLICAN"}
-			reps = republicans.sort_by(&:last_name)
+			republicans.sort_by(&:last_name).each{|rep| @script.view_all_alpha_reps(rep)}
 
 		else
 			view_all_reps
 
 		end
-		@script.view_all_alpha_reps(reps)
 	end
 
 
@@ -197,23 +196,17 @@ class CommandLineInterface
 		case house_input
 
 		when "1" # ALL
-			Rep.all.sort_by(&:district).each do |rep|
-				@script.view_all_district_reps(rep)
-			end
+			Rep.all.sort_by(&:district).each {|rep|	@script.view_all_district_reps(rep)}
 
 		when "2"
 			senate = []
 			Rep.all.each{|rep| senate << rep if rep.house == "SENATE"}
-			senate.sort_by(&:district).each do |rep|
-				@script.view_all_district_reps(rep)
-			end
+			senate.sort_by(&:district).each {|rep| @script.view_all_district_reps(rep)}
 
 		when "3"
 			assembly = []
 			Rep.all.each{|rep| assembly << rep if rep.house == "ASSEMBLY"}
-			assembly.sort_by(&:district).each do |rep|
-				@script.view_all_district_reps(rep)
-			end
+			assembly.sort_by(&:district).each {|rep| @script.view_all_district_reps(rep)}
 
 		else
 			view_all_reps
