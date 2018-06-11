@@ -16,12 +16,10 @@ require_relative "../Cli_leg_project/script.rb"
 class CommandLineInterface
 
 
-	attr_accessor :script, :rep, :bill
+	attr_accessor :script
 
 	def initialize
 		@script = Script.new 
-		@rep_viewing = nil
-		@bill_viewing = nil
 	end
 
 
@@ -79,7 +77,6 @@ class CommandLineInterface
     	Rep.create_from_collection(senate_array)
   	end
 
-
 	def make_bills
 		bills_array = Scraper.scrape_leg
 		Bill.create_from_collection(bills_array)
@@ -95,6 +92,8 @@ class CommandLineInterface
 		reps.each do |rep|
 			puts "#{rep.house} - #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 		end
+
+		puts "\n"
 		rep_options
 	end
 
@@ -102,10 +101,10 @@ class CommandLineInterface
 
 	def find_rep_by_name
 		input = @script.find_rep_by_name
-		@rep = Rep.find_by_name(input)
-		puts "#{@rep.first_name} #{@rep.last_name}"
-		puts "#{@rep.party.name}"
-		puts "#{@rep.district}" 
+		rep = Rep.find_by_name(input)
+		puts "#{rep.first_name} #{rep.last_name}"
+		puts "#{rep.party.name}"
+		puts "#{rep.district}" 
 
 		rep_options
 	end
@@ -151,7 +150,7 @@ class CommandLineInterface
 		input = @script.bill_options_msg
 
 		if input == '1'
-			view_bill_online(id)
+			view_bill_online
 		elsif input == '2'
 			contact_rep
 		elsif input == '3'
@@ -163,16 +162,26 @@ class CommandLineInterface
 
 
 
+	def contact_rep
+		puts "enter last name"
+		input = gets.strip
+		rep = Rep.find_by_name(input)
+		`open #{rep.contact_url}`
 
-	def view_bill_online(id= @bill.id)
-		bill = find_bill_by_number(id)
+		options
+	end
+
+
+	def view_bill_online
+		puts "enter bill.id"
+		id = gets.strip
+		bill = find_bill_by_number
 		open(bill.url)
+
+		options
 	end
 
-	def contact_rep(last_name=@rep.last_name)
-		rep = Rep.find_rep_by_name(last_name)
-		open(rep.contact_url)
-	end
+
 
 
 

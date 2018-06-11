@@ -28,6 +28,12 @@ class Script
 	def find_rep_by_district
 		puts "Enter district number"
 		input = gets.strip
+		if input.length == 1
+			district = input.rjust(2, '0')
+		else
+			district == input
+		end
+		district
 	end
 
 
