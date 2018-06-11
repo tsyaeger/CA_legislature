@@ -62,7 +62,7 @@ class Rep
     def self.find_by_district(district)
     	# puts "finding district"
     	# puts self.all.collect{|o| o.district}
-      	rep = self.all.detect {|o| o.district.to_s == district.to_s}
+      	rep = self.all.select {|o| o.district.to_s == district.to_s}
  		
     end
 

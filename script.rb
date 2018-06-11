@@ -55,12 +55,22 @@ class Script
 
 
 
-
 	def view_all_reps_msg
 		puts "1) View by name\n2) View by district"
 		input = gets.strip
 	end
 
+
+	def rep_options_msg
+		puts "1) Find bills by author\n2) Contact representative\n3) Return to main menu"
+		input = gets.strip
+	end
+
+
+	def bill_options_msg
+		puts "1) Find bills by author\n2) Contact representative\n3) Return to main menu"
+		input = gets.strip
+	end
 
 
 # DOES NOT WORK - INCORPORATE THIS PRINTING FUNCTION INTO CLI
