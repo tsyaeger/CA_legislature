@@ -5,7 +5,7 @@ class Script
 
 
 	def intro_msg
-		puts "Hello. Please select from the below options."
+		puts "\nHello. Please select from the below options.\n"
 	end
 
 
@@ -29,7 +29,7 @@ class Script
 
 
 	def find_reps_by_district
-		puts "Enter district number"
+		puts "\nEnter district number\n"
 		input = gets.strip
 		if input.length == 1
 			district = input.rjust(2, '0')
@@ -41,8 +41,9 @@ class Script
 
 
 	def view_reps_by_district(reps)
+		puts "\n"
 		reps.each do |rep|
-			puts "#{rep.house} - #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
+			puts "#{rep.first_name} #{rep.last_name}".colorize(:blue) + " - #{rep.house} - #{rep.party.name}"
 		end
 		puts "\n"
 	end
@@ -51,7 +52,7 @@ class Script
 
 
 	def find_rep_by_name
-		puts "Enter representative's last name"
+		puts "\nEnter representative's last name\n"
 		input = gets.strip.upcase
 	end
 
@@ -59,7 +60,7 @@ class Script
 	def find_rep_by_name_msg(rep)
 		puts "\n#{rep.first_name} #{rep.last_name}".colorize(:blue)
 		puts "#{rep.party.name}"
-		puts "District: #{rep.district}" 
+		puts "District: #{rep.district}\n" 
 	end
 
 
@@ -67,7 +68,7 @@ class Script
 
 
 	def find_bills_by_author
-		puts "Enter author's name"
+		puts "\nEnter author's name\n"
 		input = gets.strip.upcase
 	end
 
@@ -83,34 +84,81 @@ class Script
 
 
 	def find_bill_by_number
-		puts "Enter bill id"
+		puts "\nEnter bill id\n"
 		input = gets.strip
 	end
 
 
 	def view_bill(bill)
 		puts "view"
-		puts "\n#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
+		puts "\n#{bill.id}".colorize(:blue) + " - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}\n"
 	end
 
 
 
 	def contact_rep_q
-		puts "Enter last name of representative"
+		puts "\nEnter last name of representative\n"
 		input = gets.strip
 	end
 
 
 	def view_bill_online_q
-		puts "enter bill.id"
+		puts "\nEnter bill id\n"
 		id = gets.strip.upcase
 	end
 
 
-	def view_all_reps_msg
-		puts "1) View by name\n2) View by district"
+
+
+
+
+
+
+
+	def view_all_reps_q
+		puts "\n1) View by name\n2) View by district\n"
 		input = gets.strip
 	end
+
+
+
+	def view_by_party_q
+		puts "\n1) View all\n2) View Democrats\n3) View Republicans\n"
+		input = gets.strip
+	end
+
+
+	def view_all_alpha_reps(reps)
+		puts "\n"
+		reps.each do |rep|
+			puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+		end
+		puts "\n"
+	end
+
+
+	def view_by_house_q
+		puts "\n1) View all\n3) View Senate\n3) View Assembly\n"
+		input = gets.strip
+	end
+
+
+	def view_all_district_reps(reps)
+		puts "\n"
+		reps.each do |rep|
+			puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
+		end
+		puts "\n"
+	end
+
+
+
+
+
+
+
+
+
 
 
 

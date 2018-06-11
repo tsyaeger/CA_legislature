@@ -25,6 +25,9 @@ class CommandLineInterface
 	def run
 		@script.intro_msg
 		create_leg_objects
+		puts Rep.all.sort_by(&:last_name)
+
+		
 		user_options 
 		@script.exit_message
 	end
@@ -143,94 +146,88 @@ class CommandLineInterface
 
 	def view_all_reps
 
-		input = @script.view_all_reps_msg
+		sort_input = @script.view_all_reps_q
 
+		if sort_input == '1'
+		# ALPHABETICALLY
+		puts "\n1) View all\n2) View Democrats\n3) View Republicans\n"
+		party_input = gets.strip
+			# party_input = @scripts.view_by_party_q
+			party_sort(party_input)
 
+		elsif sort_input == '2'
+		# BY DISTRICT
+			house_input = @script.view_by_house_q
+			house_sort(house_input)
 
-		if input == '1'
-		#Alphabetically
-
-
-			puts "1) View all\n2) View Democrats\n3) View Depublicans"
-			input = gets.strip
-
-
-			if input == '1'
-				Rep.all.sort_by(&:last_name).each do |rep|
-					puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
-				end
-
-
-
-			elsif input == '2'
-				democrats = []
-				Rep.all.each{|rep| democrats << rep if rep.party.name == "DEMOCRAT"}
-
-				democrats.sort_by(&:last_name).each do |rep|
-					puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
-				end
-
-
-			if input == '3'
-				republicans = []
-				Rep.all.each{|rep| republicans << rep if rep.party.name == "REPUBLICAN"}
-
-				republicans.sort_by(&:last_name).each do |rep|
-					puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
-				end
-
-
-
-
-			else
-				view_all_reps
-
-			end
-
-
-
-
-
-		elsif input == '2'
-		#BY DISTRICT
-
-
-
-			puts "1) View Senate\n2) View Assembly"
-			input = gets.strip
-
-
-
-			if input == "1"
-				senate = []
-				Rep.all.each{|rep| senate << rep if rep.house == "SENATE"}
-
-				senate.sort_by(&:district).each do |rep|
-					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
-				end
-
-
-
-			elsif input == "2"
-				assembly = []
-
-				Rep.all.each do |rep|
-					assembly << rep if rep.house == "ASSEMBLY"
-				end
-
-				assembly.sort_by(&:district).each do |rep|
-					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
-				end		
-
-			end
 		end
-
-
-
-
-
 		user_options
 	end
+
+
+
+
+	def party_sort(party_input)
+
+		puts "party input: #{party_input}"
+		case party_input
+
+		when '1'. # ALL
+			reps = Rep.all.sort_by(&:last_name)
+
+		when '2' 
+			democrats = []
+			Rep.all.each{|rep| democrats << rep if rep.party.name == "DEMOCRAT"}
+			reps = democrats.sort_by(&:last_name)
+
+		when '3'
+			republicans = []
+			Rep.all.each{|rep| republicans << rep if rep.party.name == "REPUBLICAN"}
+			reps = republicans.sort_by(&:last_name)
+
+		else
+			view_all_reps
+
+		end
+		@script.view_all_alpha_reps(reps)
+	end
+
+
+
+
+
+	def house_sort(house_input)
+
+		puts "house input: #{house_input}"
+
+		case house_input
+
+		when "1" # ALL
+			reps = Rep.all.sort_by(&:district)
+
+		when "2"
+			senate = []
+			Rep.all.each{|rep| senate << rep if rep.house == "SENATE"}
+			reps = senate.sort_by(&:district)
+
+		when "3"
+			assembly = []
+			Rep.all.each{|rep| assembly << rep if rep.house == "ASSEMBLY"}
+			reps = assembly.sort_by(&:district)
+
+		else
+			view_all_reps
+
+		end
+		@script.view_all_district_reps(reps)
+	end
+
+
+
+
+
+
+
 
 
 end
