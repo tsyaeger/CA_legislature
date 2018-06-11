@@ -26,8 +26,6 @@ class Script
 	end
 
 
-
-
 	def find_reps_by_district
 		puts "\nEnter district number\n"
 		input = gets.strip
@@ -49,8 +47,6 @@ class Script
 	end
 
 
-
-
 	def find_rep_by_name
 		puts "\nEnter representative's last name\n"
 		input = gets.strip.upcase
@@ -62,9 +58,6 @@ class Script
 		puts "#{rep.party.name}"
 		puts "District: #{rep.district}\n" 
 	end
-
-
-
 
 
 	def find_bills_by_author
@@ -82,7 +75,6 @@ class Script
     end
 
 
-
 	def find_bill_by_number
 		puts "\nEnter bill id\n"
 		input = gets.strip
@@ -93,7 +85,6 @@ class Script
 		puts "view"
 		puts "\n#{bill.id}".colorize(:blue) + " - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}\n"
 	end
-
 
 
 	def contact_rep_q
@@ -108,18 +99,10 @@ class Script
 	end
 
 
-
-
-
-
-
-
-
 	def view_all_reps_q
 		puts "\n1) View by name\n2) View by district\n"
 		input = gets.strip
 	end
-
 
 
 	def view_by_party_q
@@ -142,19 +125,6 @@ class Script
 	def view_all_district_reps(rep)
 		puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 	end
-
-
-
-	def test
-		puts "test"
-	end
-
-
-
-
-
-
-
 
 
 	def exit_message

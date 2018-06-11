@@ -51,7 +51,7 @@ class CommandLineInterface
 			when "7"
 				view_bill_online
 			when 'EXIT'
-				break
+				break  #NOT WORKING
 			else
 				user_options 
 			end
@@ -140,7 +140,6 @@ class CommandLineInterface
 
 
 
-
 	def view_all_reps
 
 		sort_input = @script.view_all_reps_q
@@ -160,8 +159,6 @@ class CommandLineInterface
 		end
 		user_options
 	end
-
-
 
 
 	def party_sort(party_input)
@@ -189,8 +186,6 @@ class CommandLineInterface
 
 
 
-
-
 	def house_sort(house_input)
 
 		case house_input
@@ -213,12 +208,6 @@ class CommandLineInterface
 
 		end
 	end
-
-
-
-
-
-
 
 
 
