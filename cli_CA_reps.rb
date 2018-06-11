@@ -39,9 +39,13 @@ class CommandLineInterface
 
 	def options
 
+		puts "input now"
 		input = @script.options_msg.to_s.upcase	
 
+
 		while input != "EXIT"
+			puts "input: "
+			puts input.   # INPUT EVALUATING TO 1?
 
 			case input 
 			when "1"
@@ -58,6 +62,9 @@ class CommandLineInterface
 
 			when "5"
 				view_all_reps
+
+			when 'EXIT'
+				break
 
 			else
 				options 
@@ -88,12 +95,8 @@ class CommandLineInterface
 	def find_reps_by_district
 		input = @script.find_rep_by_district
 		reps = Rep.find_by_district(input)
-		puts "\nDISTRICT: #{input}".colorize(:blue)
-		reps.each do |rep|
-			puts "#{rep.house} - #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
-		end
+		@script.view_reps_by_district(reps)
 
-		puts "\n"
 		rep_options
 	end
 
@@ -102,16 +105,15 @@ class CommandLineInterface
 	def find_rep_by_name
 		input = @script.find_rep_by_name
 		rep = Rep.find_by_name(input)
-		puts "#{rep.first_name} #{rep.last_name}"
+		puts "\n#{rep.first_name} #{rep.last_name}".colorize(:blue)
 		puts "#{rep.party.name}"
-		puts "#{rep.district}" 
+		puts "District: #{rep.district}" 
 
 		rep_options
 	end
 
 
 	def rep_options
-		puts "rep options"
 		input = @script.rep_options_msg
 
 		if input == '1'
@@ -129,17 +131,23 @@ class CommandLineInterface
 	def find_bills_by_author
 		input = @script.find_bills_by_author
 		bills = Bill.find_by_author(input)
-		
+		@script.bill_options_msg(bills)
+
+		#ADD FIND BILL ONLINE OPTION
 		bill_options
+
 	end
+
+
+
 
 
 
 	def find_bill_by_number
 		input = @script.find_bill_by_number
-		@bill = Bill.find_by_id
-		@rep = @bill.author
-		puts "#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
+		bill = Bill.find_by_id(input)
+		rep = bill.author
+		puts "\n#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
 		
 		bill_options
 	end

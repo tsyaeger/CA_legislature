@@ -1,8 +1,7 @@
 
-
+require 'colorize'
 
 class Script
-
 
 
 	def intro_msg
@@ -37,6 +36,17 @@ class Script
 	end
 
 
+	def view_reps_by_district(reps)
+		reps.each do |rep|
+			puts "#{rep.house} - #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
+		end
+
+		puts "\n"
+	end
+
+
+
+
 	def find_rep_by_name
 		puts "Enter representative's last name"
 		input = gets.strip.upcase
@@ -67,55 +77,32 @@ class Script
 	end
 
 
+
+
+	def bills_by_author_msg(bill)
+		puts "bills by author"
+		puts "\n"
+		bills.each do |bill|
+        	puts "#{bill[0]}".colorize(:blue) + ": #{bill[1]}"
+		end
+      	puts "\n"
+    end
+
+
+
 	def rep_options_msg
-		puts "1) Find bills by author\n2) Contact representative\n3) Return to main menu"
+		puts "\n1) Find bills by author\n2) Contact representative\n3) Return to main menu\n"
 		input = gets.strip
 	end
+
 
 
 	def bill_options_msg
-		puts "1) Find bills by author\n2) Contact representative\n3) Return to main menu"
+		puts "\n1) Find bills by author\n2) Contact representative\n3) Find representative by name\n4) Return to main menu\n"
 		input = gets.strip
 	end
 
 
-# DOES NOT WORK - INCORPORATE THIS PRINTING FUNCTION INTO CLI
-	# def view_reps_alpha(reps)
-	# 	reps.sort_by(&:last_name).each do |rep|
-	# 		puts "#{rep.last_name}, #{rep.first_name} - #{rep.party.name} - District #{rep.district}"
-	# 	end
-	# end
-
-
-	# def view_reps_district(reps)
-	# 	reps.sort_by(&:district).each do |rep|
-	# 		puts "D#{rep.district}: #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
-	# 	end
-	# end
-
-
-
-
-
-	def contact_q
-		puts "Would you like to contact your representative? (Y/N)"
-		input = gets.strip.upcase
-	end
-
-	def contact_representative(url)
-		open(url)
-	end
-
-
-	def bill_text_q(bill_id)
-		puts "Would you like to view the bill details online? (Y/N)"
-		input = gets.strip.upcase
-	end
-
-
-	def view_bill_details(url)
-		open(url)
-	end
 
 
 	def exit_message

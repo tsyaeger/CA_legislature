@@ -20,8 +20,6 @@ class Bill
 
 
 
-
-
 	def self.create_from_collection(bills_array)
     	bills_array.each do |bill_hash|
 
@@ -34,24 +32,10 @@ class Bill
 
 
 
-
     def self.find_by_id(id)
-
     	bill = self.all.detect {|o| o.id == id.upcase}
-
-    	# puts 'searching ids'
-    	# self.all.each do |bill|
-    	# 	if bill.id
-    	# 		puts 'put id'
-    	# 		puts bill.id
-    	# 		if bill.id == id.upcase
-    	# 			puts "MATCH"
-    	# 			bill 
-    	# 		end
-    	# 	end
-    	# end
-      	# bill = self.all.detect {|o| o.id == id}
     end
+
 
 
 
@@ -66,12 +50,8 @@ class Bill
       			end
       		end
 		  end
+
 		  bills = rep_bills.collect{|bill| [bill.id, bill.description]}
-      puts "\n"
-		  bills.each do |bill|
-        puts "#{bill[0]}: #{bill[1]}"
-		  end
-      
     end
 
 
