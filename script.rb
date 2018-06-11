@@ -53,15 +53,45 @@ class Script
 	end
 
 
+
+	def find_rep_by_name_msg(rep)
+		puts "\n#{rep.first_name} #{rep.last_name}".colorize(:blue)
+		puts "#{rep.party.name}"
+		puts "District: #{rep.district}" 
+	end
+
+
+
+
+
+
+
 	def find_bills_by_author
 		puts "Enter author's name"
 		input = gets.strip.upcase
 	end
 
 
+	def view_bills_by_author(bills)
+		puts "\n"
+		bills.each do |bill|
+        	puts "#{bill[0]}".colorize(:blue) + ": #{bill[1]}"
+		end
+      	puts "\n"
+    end
+
+
+
 	def find_bill_by_number
 		puts "Enter bill id"
 		input = gets.strip
+	end
+
+
+
+	def view_bill(bill)
+		puts "view"
+		puts "\n#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
 	end
 
 
@@ -79,14 +109,6 @@ class Script
 
 
 
-	def bills_by_author_msg(bill)
-		puts "bills by author"
-		puts "\n"
-		bills.each do |bill|
-        	puts "#{bill[0]}".colorize(:blue) + ": #{bill[1]}"
-		end
-      	puts "\n"
-    end
 
 
 
@@ -98,7 +120,7 @@ class Script
 
 
 	def bill_options_msg
-		puts "\n1) Find bills by author\n2) Contact representative\n3) Find representative by name\n4) Return to main menu\n"
+		puts "\n1) Find bills by author\n2) Contact representative\n3) View bill details online\n4) Return to main menu\n"
 		input = gets.strip
 	end
 

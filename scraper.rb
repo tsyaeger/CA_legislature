@@ -26,11 +26,15 @@ class Scraper
 
 			if bill_type == "AB" || bill_type == "SB" && status == "Chaptered"
 				bill = {}
+
 				bill[:id] = bill_name.strip
-				bill[:url] = post.css("a").attribute('href').to_s
 				bill[:description] = post.css("td")[1].text
 				bill[:author] = post.css("td")[2].text.upcase
-		
+
+				url = post.css("a").attribute('href').to_s
+				bill_url_id = url.to_s.split("?")[1]
+				bill[:url] = "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?#{bill_url_id}"
+
 				bills << bill
 			end
 		end
@@ -118,7 +122,7 @@ end
 
 
 
-test = Scraper
+# test = Scraper
 # test.scrape_leg
 # test.scrape_assembly
 # test.scrape_senate

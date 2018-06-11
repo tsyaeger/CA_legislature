@@ -45,7 +45,7 @@ class CommandLineInterface
 
 		while input != "EXIT"
 			puts "input: "
-			puts input.   # INPUT EVALUATING TO 1?
+			puts input   # INPUT EVALUATING TO 1?
 
 			case input 
 			when "1"
@@ -105,12 +105,12 @@ class CommandLineInterface
 	def find_rep_by_name
 		input = @script.find_rep_by_name
 		rep = Rep.find_by_name(input)
-		puts "\n#{rep.first_name} #{rep.last_name}".colorize(:blue)
-		puts "#{rep.party.name}"
-		puts "District: #{rep.district}" 
+
+		@script.find_rep_by_name_msg(rep)
 
 		rep_options
 	end
+
 
 
 	def rep_options
@@ -131,7 +131,7 @@ class CommandLineInterface
 	def find_bills_by_author
 		input = @script.find_bills_by_author
 		bills = Bill.find_by_author(input)
-		@script.bill_options_msg(bills)
+		@script.view_bills_by_author(bills)
 
 		#ADD FIND BILL ONLINE OPTION
 		bill_options
@@ -146,9 +146,8 @@ class CommandLineInterface
 	def find_bill_by_number
 		input = @script.find_bill_by_number
 		bill = Bill.find_by_id(input)
-		rep = bill.author
-		puts "\n#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
-		
+		@script.view_bill(bill)	
+
 		bill_options
 	end
 
@@ -162,7 +161,7 @@ class CommandLineInterface
 		elsif input == '2'
 			contact_rep
 		elsif input == '3'
-			find_rep_by_name
+			view_bill_online
 		else
 			options
 		end
@@ -182,9 +181,11 @@ class CommandLineInterface
 
 	def view_bill_online
 		puts "enter bill.id"
-		id = gets.strip
-		bill = find_bill_by_number
-		open(bill.url)
+		id = gets.strip.upcase
+		bill = Bill.find_by_id(id)
+		puts bill.description
+		puts bill.url
+		`open #{bill.url}`
 
 		options
 	end
