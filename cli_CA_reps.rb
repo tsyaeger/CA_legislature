@@ -86,7 +86,7 @@ class CommandLineInterface
 
 
 	def find_reps_by_district
-		input = @script.find_rep_by_district
+		input = @script.find_reps_by_district
 		reps = Rep.find_by_district(input)
 		@script.view_reps_by_district(reps)
 
@@ -102,8 +102,7 @@ class CommandLineInterface
 	end
 
 	def contact_rep
-		puts "enter last name"
-		input = gets.strip
+		input = @script.contact_rep_q
 		rep = Rep.find_by_name(input)
 		`open #{rep.contact_url}`
 
@@ -119,7 +118,6 @@ class CommandLineInterface
 		@script.view_bills_by_author(bills)
 
 		user_options
-
 	end
 
 	def find_bill_by_number
@@ -130,13 +128,9 @@ class CommandLineInterface
 		user_options
 	end
 
-
 	def view_bill_online
-		puts "enter bill.id"
-		id = gets.strip.upcase
+		input = @script.view_bill_online_q
 		bill = Bill.find_by_id(id)
-		puts bill.description
-		puts bill.url
 		`open #{bill.url}`
 
 		user_options
@@ -151,16 +145,61 @@ class CommandLineInterface
 
 		input = @script.view_all_reps_msg
 
+
+
 		if input == '1'
 		#Alphabetically
-			Rep.all.sort_by(&:last_name).each do |rep|
-				puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+
+
+			puts "1) View all\n2) View Democrats\n3) View Depublicans"
+			input = gets.strip
+
+
+			if input == '1'
+				Rep.all.sort_by(&:last_name).each do |rep|
+					puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+				end
+
+
+
+			elsif input == '2'
+				democrats = []
+				Rep.all.each{|rep| democrats << rep if rep.party.name == "DEMOCRAT"}
+
+				democrats.sort_by(&:last_name).each do |rep|
+					puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+				end
+
+
+			if input == '3'
+				republicans = []
+				Rep.all.each{|rep| republicans << rep if rep.party.name == "REPUBLICAN"}
+
+				republicans.sort_by(&:last_name).each do |rep|
+					puts "#{rep.last_name}, #{rep.first_name} - #{rep.house} - #{rep.party.name} -" + " District #{rep.district}".colorize(:blue)
+				end
+
+
+
+
+			else
+				view_all_reps
+
 			end
 
+
+
+
+
 		elsif input == '2'
-			#BY DISTRICT
+		#BY DISTRICT
+
+
+
 			puts "1) View Senate\n2) View Assembly"
 			input = gets.strip
+
+
 
 			if input == "1"
 				senate = []
@@ -169,6 +208,8 @@ class CommandLineInterface
 				senate.sort_by(&:district).each do |rep|
 					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 				end
+
+
 
 			elsif input == "2"
 				assembly = []
@@ -179,9 +220,15 @@ class CommandLineInterface
 
 				assembly.sort_by(&:district).each do |rep|
 					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
-				end
+				end		
+
 			end
 		end
+
+
+
+
+
 		user_options
 	end
 

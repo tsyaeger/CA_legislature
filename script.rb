@@ -26,7 +26,9 @@ class Script
 	end
 
 
-	def find_rep_by_district
+
+
+	def find_reps_by_district
 		puts "Enter district number"
 		input = gets.strip
 		if input.length == 1
@@ -42,7 +44,6 @@ class Script
 		reps.each do |rep|
 			puts "#{rep.house} - #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 		end
-
 		puts "\n"
 	end
 
@@ -55,14 +56,11 @@ class Script
 	end
 
 
-
 	def find_rep_by_name_msg(rep)
 		puts "\n#{rep.first_name} #{rep.last_name}".colorize(:blue)
 		puts "#{rep.party.name}"
 		puts "District: #{rep.district}" 
 	end
-
-
 
 
 
@@ -90,39 +88,27 @@ class Script
 	end
 
 
-
 	def view_bill(bill)
 		puts "view"
 		puts "\n#{bill.id} - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}"
 	end
 
 
-	def view_all_reps
-		puts "CA representatives:"
+
+	def contact_rep_q
+		puts "Enter last name of representative"
+		input = gets.strip
 	end
 
+
+	def view_bill_online_q
+		puts "enter bill.id"
+		id = gets.strip.upcase
+	end
 
 
 	def view_all_reps_msg
 		puts "1) View by name\n2) View by district"
-		input = gets.strip
-	end
-
-
-
-
-
-
-
-	def rep_options_msg
-		puts "\n1) Find bills by author\n2) Contact representative\n3) Return to main menu\n"
-		input = gets.strip
-	end
-
-
-
-	def bill_options_msg
-		puts "\n1) Find bills by author\n2) Contact representative\n3) View bill details online\n4) Return to main menu\n"
 		input = gets.strip
 	end
 
