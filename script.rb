@@ -12,11 +12,13 @@ class Script
 	def options_msg
 
 		puts "\n"
-		puts "1) Find representative by district"
+		puts "1) Find representatives by district"
 		puts "2) Find representative by name"
 		puts "3) Find bills by author"
 		puts "4) Find bills by id"
 		puts "5) View all representatives"
+		puts "6) Contact representative"
+		puts "7) View bill details online"
 		puts "Type 'exit' to quit"
 		puts "\n"
 

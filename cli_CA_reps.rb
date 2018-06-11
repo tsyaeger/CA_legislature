@@ -15,64 +15,57 @@ require_relative "../Cli_leg_project/script.rb"
 
 class CommandLineInterface
 
-
 	attr_accessor :script
+
 
 	def initialize
 		@script = Script.new 
 	end
 
-
 	def run
-
 		@script.intro_msg
-
-		make_assembly
-		make_senate
-		make_bills
-		options 
-
+		create_leg_objects
+		user_options 
 		@script.exit_message
-
 	end
 
-
-	def options
-
-		puts "input now"
+	def user_options
 		input = @script.options_msg.to_s.upcase	
 
-
 		while input != "EXIT"
-			puts "input: "
-			puts input   # INPUT EVALUATING TO 1?
+			puts "reading option input as: #{input}"
 
 			case input 
 			when "1"
 				find_reps_by_district
-
 			when "2"
 				find_rep_by_name
-
 			when "3"
 				find_bills_by_author
-
 			when "4"
 				find_bill_by_number
-
 			when "5"
 				view_all_reps
-
+			when "6"
+				contact_rep
+			when "7"
+				view_bill_online
 			when 'EXIT'
 				break
-
 			else
-				options 
+				user_options 
 			end
 		end
 	end
 
 
+
+
+	def create_leg_objects
+		make_assembly
+		make_senate
+		make_bills
+	end
 
 	def make_assembly
     	assembly_array = Scraper.scrape_assembly
@@ -97,32 +90,24 @@ class CommandLineInterface
 		reps = Rep.find_by_district(input)
 		@script.view_reps_by_district(reps)
 
-		rep_options
+		user_options
 	end
-
-
 
 	def find_rep_by_name
 		input = @script.find_rep_by_name
 		rep = Rep.find_by_name(input)
-
 		@script.find_rep_by_name_msg(rep)
 
-		rep_options
+		user_options
 	end
 
+	def contact_rep
+		puts "enter last name"
+		input = gets.strip
+		rep = Rep.find_by_name(input)
+		`open #{rep.contact_url}`
 
-
-	def rep_options
-		input = @script.rep_options_msg
-
-		if input == '1'
-			find_bills_by_author
-		elsif input == '2'
-			contact_rep
-		else
-			options
-		end
+		user_options
 	end
 
 
@@ -133,49 +118,16 @@ class CommandLineInterface
 		bills = Bill.find_by_author(input)
 		@script.view_bills_by_author(bills)
 
-		#ADD FIND BILL ONLINE OPTION
-		bill_options
+		user_options
 
 	end
-
-
-
-
-
 
 	def find_bill_by_number
 		input = @script.find_bill_by_number
 		bill = Bill.find_by_id(input)
 		@script.view_bill(bill)	
 
-		bill_options
-	end
-
-
-
-	def bill_options
-		input = @script.bill_options_msg
-
-		if input == '1'
-			view_bill_online
-		elsif input == '2'
-			contact_rep
-		elsif input == '3'
-			view_bill_online
-		else
-			options
-		end
-	end
-
-
-
-	def contact_rep
-		puts "enter last name"
-		input = gets.strip
-		rep = Rep.find_by_name(input)
-		`open #{rep.contact_url}`
-
-		options
+		user_options
 	end
 
 
@@ -187,7 +139,7 @@ class CommandLineInterface
 		puts bill.url
 		`open #{bill.url}`
 
-		options
+		user_options
 	end
 
 
@@ -215,7 +167,7 @@ class CommandLineInterface
 				Rep.all.each{|rep| senate << rep if rep.house == "SENATE"}
 
 				senate.sort_by(&:district).each do |rep|
-					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name} - #{rep.party.name}"
+					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 				end
 
 			elsif input == "2"
@@ -226,11 +178,11 @@ class CommandLineInterface
 				end
 
 				assembly.sort_by(&:district).each do |rep|
-					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name} - #{rep.party.name}"
+					puts "D#{rep.district}".colorize(:blue) + ": #{rep.first_name} #{rep.last_name} - #{rep.party.name}"
 				end
 			end
 		end
-		rep_options
+		user_options
 	end
 
 
@@ -239,15 +191,6 @@ end
 
 test = CommandLineInterface.new
 test.run
-
-
-
-
-
-	# def contact_q
-	# 	puts "Would you like to contact your representative? (Y/N)"
-	# 	input = gets.strip.upcase
-	# end
 
 
 
