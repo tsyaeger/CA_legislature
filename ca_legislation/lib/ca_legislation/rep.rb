@@ -4,9 +4,6 @@
 
 class Rep
 
-  # extend Concerns::Findable
-  # extend Persistable::ClassMethods
-  # include Persistable::InstanceMethods
 
 	attr_accessor :first_name, :last_name, :district, :party, :contact_url, :bills_authored, :house
 
