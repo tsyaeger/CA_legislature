@@ -8,9 +8,6 @@ require 'colorize'
 require 'rubygems'
 require 'open-uri'
 
-# require "ca_legislation/version"
-
-
 
 require_relative "./ca_legislation/version"
 require_relative "./ca_legislation/cli"

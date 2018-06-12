@@ -1,10 +1,8 @@
 
 
-
 class CaLegislation::CommandLineInterface
 
 	attr_accessor :script
-
 
 	def initialize
 		@script = Script.new 
@@ -90,7 +88,6 @@ class CaLegislation::CommandLineInterface
 		input = @script.contact_rep_q
 		rep = Rep.find_by_name(input)
 		`open #{rep.contact_url}`
-
 	end
 
 
@@ -100,7 +97,6 @@ class CaLegislation::CommandLineInterface
 		input = @script.find_bills_by_author
 		bills = Bill.find_by_author(input)
 		@script.view_bills_by_author(bills)
-
 	end
 
 	def find_bill_by_number
@@ -114,7 +110,6 @@ class CaLegislation::CommandLineInterface
 		input = @script.view_bill_online_q
 		bill = Bill.find_by_id(input)
 		`open #{bill.url}`
-
 	end
 
 
@@ -122,7 +117,6 @@ class CaLegislation::CommandLineInterface
 
 
 	def view_all_reps
-
 		sort_input = @script.view_all_reps_q 
 
 		if sort_input == '1' # ALPHABETICALLY
@@ -132,7 +126,6 @@ class CaLegislation::CommandLineInterface
 		elsif sort_input == '2' # BY DISTRICT
 			house_input = @script.view_by_house_q
 			house_sort(house_input)
-
 		end
 	end
 

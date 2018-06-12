@@ -1,11 +1,6 @@
 
-# require 'nokogiri'
-# require 'rubygems'
-# require 'open-uri'
-
 
 class Scraper
-
 
 	def self.scrape_page(path)
 		Nokogiri::HTML(open(path))
@@ -67,18 +62,6 @@ class Scraper
 	end
 
 
-
-	# def self.get_leg_votes(url)
-		
-	# 	bill_id = url.to_s.split("?")[1]
-	# 	vote_path = "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?#{url}"
-	# 	doc = scrape_page(vote_path)
-
-	# 	post = doc.css("tbody")
-
-	# end
-
-
 	def self.scrape_senate
 
 		senators = []
@@ -115,7 +98,6 @@ class Scraper
 		end
 		senators	
 	end
-
 
 
 end

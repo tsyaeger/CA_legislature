@@ -1,6 +1,5 @@
 
 
-
 class Bill
 
 	attr_accessor :id, :url, :description, :author
@@ -14,10 +13,8 @@ class Bill
 
 	def initialize(bill_hash)
 		bill_hash.each {|key, value| self.send(("#{key}="), value)}
-
     	@@all << self
 	end
-
 
 
 	def self.create_from_collection(bills_array)
@@ -28,32 +25,30 @@ class Bill
 		  	bill_hash[:author] = rep_obj
       		self.new(bill_hash)
     	end
-  	end
+  end
 
 
 
-    def self.find_by_id(id)
+  def self.find_by_id(id)
     	bill = self.all.detect {|o| o.id.upcase == id.upcase}
-    end
+  end
 
 
 
 
 
-    def self.find_by_author(last_name)
+  def self.find_by_author(last_name)
     	rep_bills = []
 
-      	self.all.each do |bill|
-      		if bill.author
-      			if bill.author.last_name == last_name
+      self.all.each do |bill|
+      	if bill.author
+      		 if bill.author.last_name == last_name
       				rep_bills << bill
-      			end
-      		end
-		  end
-
+      		 end
+      	end
+		 end
 		  bills = rep_bills.collect{|bill| [bill.id, bill.description]}
-    end
-
+  end
 
 
 end

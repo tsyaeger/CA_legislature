@@ -1,7 +1,5 @@
 
 
-
-
 class Party
 
 	attr_accessor :name, :members
@@ -35,8 +33,6 @@ class Party
     end
 
 
-
-
   	def add_member(rep)
 	   	@members << rep unless @members.include?(rep)
 	    if rep.party == nil
@@ -48,9 +44,6 @@ class Party
 	def self.members
   		members = self.all.collect{|obj| obj.members}
   	end
-
-
-
 
 
 end
