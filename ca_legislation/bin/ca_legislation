@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/ca_legislation'
+
+ca_legislation::CommandLineInterface.new.run.  # HOW DO I REFER TO AND RUN CLI ?
