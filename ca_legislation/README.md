@@ -1,6 +1,8 @@
 # CaLegislation
 
 
+This Ruby Gem provides access to information on California state legislators and passed bills for the 2017-2018 session.
+
 
 ## Installation
 
