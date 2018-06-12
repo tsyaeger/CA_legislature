@@ -1,18 +1,5 @@
 
 
-# require 'bundler'
-# require 'nokogiri'
-# require 'colorize'
-# require 'rubygems'
-# require 'open-uri'
-
-# require_relative "../Cli_leg_project/scraper.rb"
-# require_relative "../Cli_leg_project/bill.rb"
-# require_relative "../Cli_leg_project/rep.rb"
-# require_relative "../Cli_leg_project/party.rb"
-# require_relative "../Cli_leg_project/script.rb"
-
-
 
 class CaLegislation::CommandLineInterface
 
@@ -31,10 +18,10 @@ class CaLegislation::CommandLineInterface
 	end
 
 	def user_options
-		input = @script.options_msg.to_s.upcase	
-
+		input = ""
+		
 		while input != "EXIT"
-			puts "reading option input as: #{input}"
+			input = @script.options_msg
 
 			case input 
 			when "1"
@@ -52,7 +39,7 @@ class CaLegislation::CommandLineInterface
 			when "7"
 				view_bill_online
 			when 'EXIT'
-				break  #NOT WORKING
+				break  
 			else
 				user_options 
 			end
@@ -90,8 +77,6 @@ class CaLegislation::CommandLineInterface
 		input = @script.find_reps_by_district
 		reps = Rep.find_by_district(input)
 		@script.view_reps_by_district(reps)
-
-		user_options
 	end
 
 	def find_rep_by_name
@@ -99,7 +84,6 @@ class CaLegislation::CommandLineInterface
 		rep = Rep.find_by_name(input)
 		@script.find_rep_by_name_msg(rep)
 
-		user_options
 	end
 
 	def contact_rep
@@ -107,7 +91,6 @@ class CaLegislation::CommandLineInterface
 		rep = Rep.find_by_name(input)
 		`open #{rep.contact_url}`
 
-		user_options
 	end
 
 
@@ -118,7 +101,6 @@ class CaLegislation::CommandLineInterface
 		bills = Bill.find_by_author(input)
 		@script.view_bills_by_author(bills)
 
-		user_options
 	end
 
 	def find_bill_by_number
@@ -126,7 +108,6 @@ class CaLegislation::CommandLineInterface
 		bill = Bill.find_by_id(input)
 		@script.view_bill(bill)	
 
-		user_options
 	end
 
 	def view_bill_online
@@ -134,7 +115,6 @@ class CaLegislation::CommandLineInterface
 		bill = Bill.find_by_id(input)
 		`open #{bill.url}`
 
-		user_options
 	end
 
 
@@ -145,20 +125,15 @@ class CaLegislation::CommandLineInterface
 
 		sort_input = @script.view_all_reps_q 
 
-		if sort_input == '1'
-		# ALPHABETICALLY
+		if sort_input == '1' # ALPHABETICALLY
 			party_input = @script.view_by_party_q
-			puts "party input: #{party_input}"
 			party_sort(party_input)
 
-		elsif sort_input == '2'
-		# BY DISTRICT
+		elsif sort_input == '2' # BY DISTRICT
 			house_input = @script.view_by_house_q
-			puts "house input: #{house_input}"
 			house_sort(house_input)
 
 		end
-		user_options
 	end
 
 
@@ -215,8 +190,6 @@ class CaLegislation::CommandLineInterface
 end
 
 
-# test = CommandLineInterface.new
-# test.run
 
 
 

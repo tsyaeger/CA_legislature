@@ -1,5 +1,4 @@
 
-require 'colorize'
 
 class Script
 
@@ -22,7 +21,7 @@ class Script
 		puts "Type 'exit' to quit"
 		puts "\n"
 
-		input = gets.strip
+		input = gets.strip.to_s.upcase
 	end
 
 
@@ -77,7 +76,7 @@ class Script
 
 	def find_bill_by_number
 		puts "\nEnter bill id\n"
-		input = gets.strip
+		input = gets.strip.upcase
 	end
 
 

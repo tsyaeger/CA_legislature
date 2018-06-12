@@ -19,6 +19,6 @@ require_relative "./ca_legislation/script"
 require_relative "./ca_legislation/scraper"
 
 
-module CaLegislation # WHERE DID THIS COME FROM
+module CaLegislation 
   # Your code goes here...
 end
