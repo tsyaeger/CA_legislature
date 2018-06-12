@@ -33,7 +33,7 @@ class Bill
 
 
     def self.find_by_id(id)
-    	bill = self.all.detect {|o| o.id == id.upcase}
+    	bill = self.all.detect {|o| o.id.upcase == id.upcase}
     end
 
 

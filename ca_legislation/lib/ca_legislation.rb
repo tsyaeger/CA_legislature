@@ -10,15 +10,15 @@ require 'open-uri'
 
 
 
-require_relative "ca_legislation/version"
-require_relative "ca_legislation/cli"
-require_relative "ca_legislation/bill"
-require_relative "ca_legislation/rep"
-require_relative "ca_legislation/party"
-require_relative "ca_legislation/script"
-require_relative "ca_legislation/scraper"
+require_relative "./ca_legislation/version"
+require_relative "./ca_legislation/cli"
+require_relative "./ca_legislation/bill"
+require_relative "./ca_legislation/rep"
+require_relative "./ca_legislation/party"
+require_relative "./ca_legislation/script"
+require_relative "./ca_legislation/scraper"
 
 
-module CaLegislation. # WHERE DID THIS COME FROM
+module CaLegislation # WHERE DID THIS COME FROM
   # Your code goes here...
 end

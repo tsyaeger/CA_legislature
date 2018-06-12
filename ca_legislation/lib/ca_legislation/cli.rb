@@ -1,20 +1,20 @@
 
 
-require 'bundler'
-require 'nokogiri'
-require 'colorize'
-require 'rubygems'
-require 'open-uri'
+# require 'bundler'
+# require 'nokogiri'
+# require 'colorize'
+# require 'rubygems'
+# require 'open-uri'
 
-require_relative "../Cli_leg_project/scraper.rb"
-require_relative "../Cli_leg_project/bill.rb"
-require_relative "../Cli_leg_project/rep.rb"
-require_relative "../Cli_leg_project/party.rb"
-require_relative "../Cli_leg_project/script.rb"
+# require_relative "../Cli_leg_project/scraper.rb"
+# require_relative "../Cli_leg_project/bill.rb"
+# require_relative "../Cli_leg_project/rep.rb"
+# require_relative "../Cli_leg_project/party.rb"
+# require_relative "../Cli_leg_project/script.rb"
 
 
 
-class CommandLineInterface
+class CaLegislation::CommandLineInterface
 
 	attr_accessor :script
 
@@ -131,7 +131,7 @@ class CommandLineInterface
 
 	def view_bill_online
 		input = @script.view_bill_online_q
-		bill = Bill.find_by_id(id)
+		bill = Bill.find_by_id(input)
 		`open #{bill.url}`
 
 		user_options
