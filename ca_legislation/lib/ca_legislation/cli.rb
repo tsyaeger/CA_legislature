@@ -74,20 +74,32 @@ class CaLegislation::CommandLineInterface
 	def find_reps_by_district
 		input = @script.find_reps_by_district
 		reps = CaLegislation::Rep.find_by_district(input)
-		@script.view_reps_by_district(reps)
+		if reps.length > 1
+			@script.view_reps_by_district(reps)
+		else
+			@script.district_notfound_msg
+		end
 	end
 
 	def find_rep_by_name
 		input = @script.find_rep_by_name
 		rep = CaLegislation::Rep.find_by_name(input)
-		@script.find_rep_by_name_msg(rep)
+		if rep
+			@script.find_rep_by_name_msg(rep)
+		else
+			@script.rep_notfound_msg
+		end
 
 	end
 
 	def contact_rep
 		input = @script.contact_rep_q
 		rep = CaLegislation::Rep.find_by_name(input)
-		`open #{rep.contact_url}`
+		if rep
+			`open #{rep.contact_url}`
+		else
+			@script.rep_notfound_msg
+		end
 	end
 
 
@@ -96,20 +108,31 @@ class CaLegislation::CommandLineInterface
 	def find_bills_by_author
 		input = @script.find_bills_by_author
 		bills = CaLegislation::Bill.find_by_author(input)
-		@script.view_bills_by_author(bills)
+		if bills.length > 1
+			@script.view_bills_by_author(bills)
+		else
+			@script.author_notfound_msg
+		end
 	end
 
 	def find_bill_by_number
 		input = @script.find_bill_by_number
 		bill = CaLegislation::Bill.find_by_id(input)
-		@script.view_bill(bill)	
-
+		if bill
+			@script.view_bill(bill)	
+		else
+			@script.bill_notfound_msg
+		end
 	end
 
 	def view_bill_online
 		input = @script.view_bill_online_q
 		bill = CaLegislation::Bill.find_by_id(input)
-		`open #{bill.url}`
+		if bill
+			`open #{bill.url}`
+		else
+			@script.bill_notfound_msg
+		end
 	end
 
 
@@ -126,6 +149,8 @@ class CaLegislation::CommandLineInterface
 		elsif sort_input == '2' # BY DISTRICT
 			house_input = @script.view_by_house_q
 			house_sort(house_input)
+		else
+			view_all_reps
 		end
 	end
 

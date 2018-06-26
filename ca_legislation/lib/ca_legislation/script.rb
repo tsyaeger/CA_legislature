@@ -58,6 +58,15 @@ class CaLegislation::Script
 		puts "District: #{rep.district}\n" 
 	end
 
+	def district_notfound_msg
+		puts "District not found. Enter '5' to view all representatives."
+	end
+
+
+	def rep_notfound_msg
+		puts "Representative not found. Enter '5' to view all representatives."
+	end
+
 
 	def find_bills_by_author
 		puts "\nEnter author's name\n"
@@ -85,6 +94,13 @@ class CaLegislation::Script
 		puts "\n#{bill.id}".colorize(:blue) + " - Author: #{bill.author.last_name}, #{bill.author.first_name} - Description: #{bill.description}\n"
 	end
 
+	def bill_notfound_msg
+		puts "Bill not found. Enter '3' to view bills by author."
+	end
+
+	def author_notfound_msg
+		puts "No bills by that author found. Enter '5' to view all representatives."
+	end
 
 	def contact_rep_q
 		puts "\nEnter last name of representative\n"
