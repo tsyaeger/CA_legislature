@@ -1,6 +1,6 @@
 
 
-class Party
+class CaLegislation::Party
 
 	attr_accessor :name, :members
 

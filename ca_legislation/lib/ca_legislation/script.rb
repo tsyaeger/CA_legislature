@@ -1,6 +1,6 @@
 
 
-class Script
+class CaLegislation::Script
 
 
 	def intro_msg

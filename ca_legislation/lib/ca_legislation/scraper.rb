@@ -1,6 +1,6 @@
 
 
-class Scraper
+class CaLegislation::Scraper
 
 	def self.scrape_page(path)
 		Nokogiri::HTML(open(path))

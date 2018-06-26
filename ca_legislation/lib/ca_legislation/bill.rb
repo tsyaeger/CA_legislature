@@ -1,6 +1,6 @@
 
 
-class Bill
+class CaLegislation::Bill
 
 	attr_accessor :id, :url, :description, :author
 
@@ -21,7 +21,7 @@ class Bill
     	bills_array.each do |bill_hash|
 
 			rep = bill_hash[:author]
-		  	rep_obj = Rep.find_by_name(rep)
+		  	rep_obj = CaLegislation::Rep.find_by_name(rep)
 		  	bill_hash[:author] = rep_obj
       		self.new(bill_hash)
     	end

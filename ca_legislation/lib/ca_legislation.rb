@@ -2,10 +2,10 @@
 # require 'bundler/setup'
 
 
-require 'bundler'
+# require 'bundler'
 require 'nokogiri'
 require 'colorize'
-require 'rubygems'
+# require 'rubygems'
 require 'open-uri'
 
 
